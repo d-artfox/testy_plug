@@ -76,7 +76,6 @@ class XlsxParser:
                         is_steps=False,
                         name=case_cell.value,
                     )
-                    TestCase.objects.partial_rebuild(tmp_case.tree_id)
 
                 case_steps.append(
                     TestCaseStep(
