@@ -36,7 +36,7 @@ class ExamplePluginConfig(TestyPluginConfig):
     verbose_name = 'Plugin example v2'
     description = 'It is very simple plugin example'
     version = '0.1'
-    plugin_base_url = 'plugin-example-v2'
+    plugin_base_url = 'plugin_example_v2'
     index_reverse_name = 'upload-file'
     urls_module = 'plugin_example_v2.urls'
 

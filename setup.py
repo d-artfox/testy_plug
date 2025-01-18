@@ -31,12 +31,12 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='plugin-example_v2',
+    name='plugin_example_v2',
     version='0.1',
     description='Example of testy plugin v2',
     install_requires=['openpyxl==3.1.1'],
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    entry_points={'testy': ['plugin-example-v2=plugin_example_v2']},
+    entry_points={'testy': ['plugin_example_v2=plugin_example_v2']},
 )
