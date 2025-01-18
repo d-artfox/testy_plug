@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>File Uploader</title>
+</head>
+<body>
+ <h1>File Uploader</h1>
+
+ <form action="{% url 'plugins:plugin_example_v2:upload-file' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label for="selector">Select a model:</label>
+
+  <select name="selector" id="selector">
+   {% for project in projects %}
+    <option value="{{ project }}">{{ project }}</option>
+   {% endfor %}
+  </select>
+
+  <br><br>
+
+  <label for="file">Choose a file:</label>
+  <input type="file" name="file" id="file">
+
+  <br><br>
+
+  <button type="submit">Upload</button>
+
+  <br><br>
+
+  <h3>Response: </h3>
+  <p>{{ request.session.response }}</p>
+
+  <br><br>
+
+ </form>
+</body>
+</html>
