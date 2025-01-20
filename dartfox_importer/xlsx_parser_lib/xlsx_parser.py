@@ -82,7 +82,8 @@ class XlsxParser:
             step = TestCaseStep(name=step_cell.value,
                                 scenario=step_cell.value,
                                 project_id=self.project_id,
-                                test_case=tmp_case
+                                test_case=tmp_case,
+                                sort_order=sort_order
                                 )
             sort_order = sort_order + 1
             steps.append(step)
