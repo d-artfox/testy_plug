@@ -47,6 +47,7 @@ class XlsxParser:
         suites = []
         steps = []
         suites_counter = 0
+        sort_order = 0
         tmp_suite = None
         tmp_case = None
         for idx, row in enumerate(self.ws.iter_rows(), 1):
@@ -76,12 +77,14 @@ class XlsxParser:
                     suite=tmp_suite,
                     is_steps = True
                 )
+                sort_order=1
 
             step = TestCaseStep(name=step_cell.value,
                                 scenario=step_cell.value,
                                 project_id=self.project_id,
                                 test_case=tmp_case
                                 )
+            sort_order = sort_order + 1
             steps.append(step)
         bulk_create_with_history(steps, TestCaseStep)
         return suites_counter, len(steps)
