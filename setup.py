@@ -32,7 +32,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='dartfox-importer',
-    version='0.7',
+    version='0.8',
     description='dartfox-importer',
     install_requires=['openpyxl==3.1.1'],
     packages=find_packages(),

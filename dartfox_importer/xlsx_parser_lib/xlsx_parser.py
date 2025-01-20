@@ -52,10 +52,10 @@ class XlsxParser:
         tmp_case = None
         for idx, row in enumerate(self.ws.iter_rows(), 1):
             try:
-                suite_cell, case_cell, step_cell = row
+                suite_cell, case_cell, step_cell, expected_cell = row
             except ValueError:
                 raise InvalidXlsx(
-                    f'Too many values in line: expected 3, got {len(row)}'
+                    f'Too many values in line: expected 4, got {len(row)}'
                 )
 
             if not suite_cell.value and not tmp_suite:
@@ -81,6 +81,7 @@ class XlsxParser:
 
             step = TestCaseStep(name=step_cell.value,
                                 scenario=step_cell.value,
+                                expected=expected_cell.value,
                                 project_id=self.project_id,
                                 test_case=tmp_case,
                                 sort_order=sort_order
