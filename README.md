@@ -153,7 +153,7 @@ class UploadFileApiView(CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         ...
-        return redirect(reverse('plugins:plugin_example_v2:index'))
+        return redirect(reverse('plugins:dartfox_importer:index'))
 ```
 
 ## Файл urls

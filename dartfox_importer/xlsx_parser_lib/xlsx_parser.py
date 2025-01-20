@@ -44,13 +44,14 @@ class XlsxParser:
 
     @transaction.atomic
     def create_suites_with_cases(self):
-        case_steps = []
+        suites = []
+        steps = []
         suites_counter = 0
         tmp_suite = None
         tmp_case = None
         for idx, row in enumerate(self.ws.iter_rows(), 1):
             try:
-                suite_cell, case_cell, scenario_cell = row
+                suite_cell, case_cell, step_cell = row
             except ValueError:
                 raise InvalidXlsx(
                     f'Too many values in line: expected 3, got {len(row)}'
@@ -67,24 +68,17 @@ class XlsxParser:
                 TestSuite.objects.partial_rebuild(tmp_suite.tree_id)
                 suites_counter += 1
 
-                if not case_cell.value and not tmp_case:
-                    raise InvalidXlsx('Empty suite')
-                if case_cell.value:
-                    tmp_case = TestCase.objects.create(
-                        project_id=self.project_id,
-                        suite=tmp_suite,
-                        is_steps=False,
-                        name=case_cell.value,
-                    )
-
-                case_steps.append(
-                    TestCaseStep(
-                        project_id=self.project_id,
-                        suite=tmp_suite,
-                        test_case=tmp_case,
-                        scenario=scenario_cell.value,
-                        name=case_cell.value
-                    )
+            if not case_cell.value and not tmp_case:
+                raise InvalidXlsx('Empty suite')
+            if case_cell.value:
+                case =  TestCase(
+                    project_id=self.project_id,
+                    suite=tmp_suite,
+                    is_steps = True,
+                    name=case_cell.value
                 )
-        bulk_create_with_history(case_steps, TestCaseStep)
-        return suites_counter
+                tmp_case = TestCase.objects.create(case)
+
+            steps.append(TestCaseStep(name=step_cell.value,scenario=step_cell.value,project_id=self.project_id,test_case=tmp_case.id))
+        bulk_create_with_history(steps, TestCaseStep)
+        return suites_counter, len(steps)

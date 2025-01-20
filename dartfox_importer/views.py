@@ -28,19 +28,37 @@
 # if any, to sign a "copyright disclaimer" for the program, if necessary.
 # For more information on this, and how to apply and follow the GNU AGPL, see
 # <http://www.gnu.org/licenses/>.
-from testy.plugins.hooks import TestyPluginConfig, hookimpl
+from testy.core.models import Project
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.views.generic import ListView
+from rest_framework.generics import CreateAPIView
+from rest_framework.serializers import Serializer
+
+from dartfox_importer.xlsx_parser_lib.xlsx_parser import XlsxParser
 
 
-class ExamplePluginConfig(TestyPluginConfig):
-    package_name = 'plugin_example_v2'
-    verbose_name = 'Plugin example v2'
-    description = 'It is very simple plugin example'
-    version = '0.1'
-    plugin_base_url = 'plugin_example_v2'
-    index_reverse_name = 'upload-file'
-    urls_module = 'plugin_example_v2.urls'
+class ProjectListView(ListView):
+    model = Project
+    queryset = Project.objects.all()
+    template_name = 'upload.html'
+    context_object_name = 'projects'
 
 
-@hookimpl
-def config():
-    return ExamplePluginConfig
+class UploadFileApiView(CreateAPIView):
+    serializer_class = Serializer
+
+    def create(self, request, *args, **kwargs):
+        model_name = request.POST.get('selector')
+        project = get_object_or_404(Project, name=model_name)
+        file = request.FILES.get('file')
+        parser = XlsxParser(file, project.id)
+        try:
+            suites_count, cases_count = parser.create_suites_with_cases()
+            response_text = (f'{suites_count} created suites, '
+                             f'{cases_count} created cases')
+        except Exception as ex:
+            response_text = f'An error occurred: {ex}'
+
+        request.session["response"] = response_text
+        return redirect(reverse('plugins:dartfox_importer:index'))

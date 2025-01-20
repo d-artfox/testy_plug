@@ -32,15 +32,15 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 
-from plugin_example_v2 import views
+from dartfox_importer import views
 
 router = SimpleRouter()
 urlpatterns = [
     path('', views.ProjectListView.as_view(), name='index'),
     path(
-        'upload-file/',
+        'dartfox-file/',
         login_required(views.UploadFileApiView.as_view()),
-        name='upload-file'
+        name='dartfox-file'
     ),
 ]
 urlpatterns += router.urls
