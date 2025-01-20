@@ -65,7 +65,7 @@ class XlsxParser:
                     project_id=self.project_id,
                     name=suite_cell.value
                 )
-                TestSuite.objects.partial_rebuild(tmp_suite.tree_id)
+                #TestSuite.objects.partial_rebuild(tmp_suite.tree_id)
                 suites_counter += 1
 
             if not case_cell.value and not tmp_case:
