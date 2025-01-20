@@ -36,10 +36,10 @@ from dartfox_importer import views
 
 router = SimpleRouter()
 urlpatterns = [
-    path('', views.ProjectListView.as_view(), name='index'),
+    path('', views.DartfoxProjectListView.as_view(), name='index'),
     path(
         'dartfox-file/',
-        login_required(views.UploadFileApiView.as_view()),
+        login_required(views.DartfoxFileApiView.as_view()),
         name='dartfox-file'
     ),
 ]

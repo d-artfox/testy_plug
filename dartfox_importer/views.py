@@ -38,14 +38,14 @@ from rest_framework.serializers import Serializer
 from dartfox_importer.xlsx_parser_lib.xlsx_parser import XlsxParser
 
 
-class ProjectListView(ListView):
+class DartfoxProjectListView(ListView):
     model = Project
     queryset = Project.objects.all()
-    template_name = 'upload.html'
+    template_name = 'dartfox.html'
     context_object_name = 'projects'
 
 
-class UploadFileApiView(CreateAPIView):
+class DartfoxFileApiView(CreateAPIView):
     serializer_class = Serializer
 
     def create(self, request, *args, **kwargs):
