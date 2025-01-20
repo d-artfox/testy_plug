@@ -31,12 +31,12 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='dartfox importer',
+    name='dartfox-importer',
     version='0.1',
-    description='dartfox importer',
+    description='dartfox-importer',
     install_requires=['openpyxl==3.1.1'],
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    entry_points={'testy': ['dartfox_importer=dartfox_importer']},
+    entry_points={'testy': ['dartfox-importer=dartfox_importer']},
 )

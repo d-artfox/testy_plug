@@ -36,7 +36,7 @@ class DartfoxPluginConfig(TestyPluginConfig):
     verbose_name = 'Plugin example v2'
     description = 'It is very simple plugin example'
     version = '0.1'
-    plugin_base_url = 'dartfox_importer'
+    plugin_base_url = 'dartfox-importer'
     index_reverse_name = 'dartfox-file'
     urls_module = 'dartfox_importer.urls'
 
