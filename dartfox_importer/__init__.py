@@ -31,7 +31,7 @@
 from testy.plugins.hooks import TestyPluginConfig, hookimpl
 
 
-class ExamplePluginConfig(TestyPluginConfig):
+class DartfoxPluginConfig(TestyPluginConfig):
     package_name = 'dartfox_importer'
     verbose_name = 'Plugin example v2'
     description = 'It is very simple plugin example'
@@ -43,4 +43,4 @@ class ExamplePluginConfig(TestyPluginConfig):
 
 @hookimpl
 def config():
-    return ExamplePluginConfig
+    return DartfoxPluginConfig
