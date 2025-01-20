@@ -78,6 +78,11 @@ class XlsxParser:
                 )
                 tmp_case = TestCase.objects.create(case)
 
-            steps.append(TestCaseStep(name=step_cell.value,scenario=step_cell.value,project_id=self.project_id,test_case=tmp_case))
+            step = TestCaseStep(name=step_cell.value,
+                                scenario=step_cell.value,
+                                project_id=self.project_id,
+                                test_case=tmp_case
+                                )
+            steps.append(step)
         bulk_create_with_history(steps, TestCaseStep)
         return suites_counter, len(steps)
