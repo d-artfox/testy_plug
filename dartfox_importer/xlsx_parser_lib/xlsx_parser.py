@@ -71,10 +71,10 @@ class XlsxParser:
                 raise InvalidXlsx('Empty suite')
             if case_cell.value:
                 case =  TestCase(
+                    name=case_cell.value,
                     project_id=self.project_id,
                     suite=tmp_suite,
-                    is_steps = True,
-                    name=case_cell.value
+                    is_steps = True
                 )
                 tmp_case = TestCase.objects.create(case)
 
